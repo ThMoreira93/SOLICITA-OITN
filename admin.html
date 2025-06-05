@@ -1390,7 +1390,7 @@
 </div>
 <div class="header-actions">
 <div class="search-container">
-<input class="search-input" id="buscaTextoPedidos" placeholder="Buscar por colaborador, número ou telefone..." type="text"/>
+<input class="search-input" id="buscaTextoPedidos" placeholder="Buscar por colaborador, número ou Focal..." type="text"/>
 <button class="btn-search">
 <i class="fas fa-search"></i>
 </button>
@@ -1643,11 +1643,12 @@ let confirmCallback = null;
 // Usuários do sistema
 const USUARIOS = {
   "CLB354374": { senha: "*2025*Coelba", nome: "THIAGO MOREIRA", cargo: "ADMINISTRADOR", primeiroLogin: false },
-  "CLB149233": { senha: "FCNASCIMENTO", nome: "FARAH", cargo: "FOCAL DE PERDAS", primeiroLogin: false },
-  "CLB123633": { senha: "WLINO", nome: "WANDERSON", cargo: "FOCAL DE COBRANÇA", primeiroLogin: false },
-  "CLB961017": { senha: "12345", nome: "MARCOS", cargo: "TEC. ESPECIALISTA", primeiroLogin: false },
-  "CLB346462": { senha: "Coelba@01", nome: "MARIANO", cargo: "FOCAL DE MATERIAL", primeiroLogin: false },
-  "CLB620245": { senha: "Camilinha@28", nome: "CAMILA", cargo: "FOCAL PREVENTIVA", primeiroLogin: false }
+  "153133": { senha: "Coelba*2020", nome: "ALISSON REIS", cargo: "TEC. ESPECIALISTA", primeiroLogin: false },
+  "162299": { senha: "Coelba*2021", nome: "MARIA", cargo: "TEC. MANUTENÇÃO", primeiroLogin: false },
+  "961188": { senha: "Coelba*2022", nome: "SHAYANNE", cargo: "TEC. COMERCIAL", primeiroLogin: false },
+  "162522": { senha: "Coelba*2023", nome: "THAIS", cargo: "FOCAL OPEX", primeiroLogin: false },
+  "121266": { senha: "Coelba*2024", nome: "VALÉRIA", cargo: "FOCAL PERDAS", primeiroLogin: false },
+  "960219": { senha: "Coelba*2025", nome: "EBER", cargo: "TEC. MANUTENÇÃO", primeiroLogin: false }
 };
 
 // Autenticação
@@ -1893,8 +1894,8 @@ function renderizarPedidos(lista) {
             <div class="pedido-info-value">${p.colaborador}</div>
           </div>
           <div class="pedido-info-item">
-            <div class="pedido-info-label">Telefone:</div>
-            <div class="pedido-info-value">${p.telefone}</div>
+            <div class="pedido-info-label">Focal:</div>
+            <div class="pedido-info-value">${p.Focal}</div>
           </div>
           <div class="pedido-info-item">
             <div class="pedido-info-label">Observações:</div>
@@ -2084,7 +2085,7 @@ function aplicarFiltros() {
     (!texto || 
      p.colaborador.toLowerCase().includes(texto) || 
      p.numero.toString().includes(texto) || 
-     p.telefone.includes(texto))
+     p.Focal.includes(texto))
   );
   
   renderizarPedidos(pedidosFiltrados);
