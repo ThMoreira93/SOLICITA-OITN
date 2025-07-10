@@ -1405,6 +1405,14 @@
 <option>Material Entregue</option>
 <option>Pedido Cancelado</option>
 </select>
+<select class="form-select" id="filtroFocal" style="width: auto; margin-right: var(--space-3);">
+              <option value="">Todos os Focais</option>
+<option value="">CLARA</option>
+<option value="">SHAYANNE</option>
+<option value="">VALÉRIA</option>
+<option value="">EBER</option>
+<option value="">THAIS</option>
+            </select>
 <button class="btn btn-primary">
 <i class="fas fa-plus"></i>
 <span>Novo Pedido</span>
@@ -1851,6 +1859,7 @@ function carregarPedidos() {
     atualizarTabelaPedidosRecentes();
     gerarGraficoStatus(todosPedidos);
     atualizarKPIs(todosPedidos);
+    popularFiltroFocal(todosPedidos);
     
     hideLoadingIndicator();
   }, error => {
@@ -2079,11 +2088,13 @@ function atualizarStatusItem(pedidoId, itemIndex, novoStatus) {
 // Filtros
 function aplicarFiltros() {
   const status = document.getElementById("filtroStatus").value;
+  const focal = document.getElementById("filtroFocal").value;
   const texto = document.getElementById("buscaTextoPedidos").value.toLowerCase() || 
                 document.getElementById("buscaTexto").value.toLowerCase();
   
   pedidosFiltrados = todosPedidos.filter(p =>
     (!status || p.status === status) &&
+    (!focal || p.Focal === focal) &&
     (!texto || 
      p.colaborador.toLowerCase().includes(texto) || 
      p.numero.toString().includes(texto) || 
@@ -2099,11 +2110,35 @@ document.addEventListener('DOMContentLoaded', function() {
   const buscaTexto = document.getElementById("buscaTexto");
   const buscaTextoPedidos = document.getElementById("buscaTextoPedidos");
   const filtroStatus = document.getElementById("filtroStatus");
+  const filtroFocal = document.getElementById("filtroFocal");
   
   if (buscaTexto) buscaTexto.addEventListener("input", aplicarFiltros);
   if (buscaTextoPedidos) buscaTextoPedidos.addEventListener("input", aplicarFiltros);
   if (filtroStatus) filtroStatus.addEventListener("change", aplicarFiltros);
+  if (filtroFocal) filtroFocal.addEventListener("change", aplicarFiltros);
 });
+// Função para popular o filtro de Focal
+function popularFiltroFocal(pedidos) {
+  const filtroFocal = document.getElementById("filtroFocal");
+  if (!filtroFocal) return;
+  
+  // Obter valores únicos de Focal
+  const focaisUnicos = [...new Set(pedidos.map(p => p.Focal).filter(focal => focal && focal.trim() !== ""))];
+  focaisUnicos.sort();
+  
+  // Limpar opções existentes (exceto a primeira)
+  while (filtroFocal.children.length > 1) {
+    filtroFocal.removeChild(filtroFocal.lastChild);
+  }
+  
+  // Adicionar opções de Focal
+  focaisUnicos.forEach(focal => {
+    const option = document.createElement("option");
+    option.value = focal;
+    option.textContent = focal;
+    filtroFocal.appendChild(option);
+  });
+}
 
 // Atualização em massa
 function atualizarStatusEmMassa() {
